@@ -65,10 +65,10 @@ class DBStorage:
             return None
         same_class = models.storage.all(cls)
         for surch in same_class.values():
-            if (surch.id != id):
-                return None
-            else:
+            if (surch.id == id):
                 return surch
+        return None
+                
             
     def count(self, cls=None):
         """number of object in db"""
@@ -77,7 +77,7 @@ class DBStorage:
             for clss in classes.values():
                 count = count + len(models.storage.all(clss).values())
         else:
-                count = len(models.storage.all(cls).values())
+            count = len(models.storage.all(cls).values())
         return count
 
     def delete(self, obj=None):
