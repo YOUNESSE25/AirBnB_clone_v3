@@ -68,8 +68,7 @@ class DBStorage:
             if (surch.id == id):
                 return surch
         return None
-                
-            
+                        
     def count(self, cls=None):
         """number of object in db"""
         if not cls:
