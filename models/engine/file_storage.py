@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+import models
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -47,6 +48,28 @@ class FileStorage:
             json_objects[key] = self.__objects[key].to_dict()
         with open(self.__file_path, 'w') as f:
             json.dump(json_objects, f)
+
+    def get(self, cls, id):
+        """return object (class/id)"""
+        if cls not in classes.values():
+            return None
+        same_class = models.storage.all(cls)
+        for surch in same_class.values():
+            if (surch.id != id):
+                return None
+            else:
+                return surch
+            
+    def count(self, cls=None):
+        """number of object in db"""
+        tout_classes = classes.values()
+        if (cls != None):
+            conteur = 0
+            for clss in classes.values():
+                conteur = conteur + len(models.storage.all(clss).values())
+        else:
+                conteur = len(models.storage.all(cls).values())
+        return conteur
 
     def reload(self):
         """deserializes the JSON file to __objects"""
