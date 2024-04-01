@@ -6,7 +6,8 @@ from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 
 
-@app_views.route('/states/<state_id>', methods=['GET','DELETE','PUT'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['GET', 'DELETE',
+                                                'PUT'], strict_slashes=False)
 def login(state_id):
     """with id"""
     if request.method == 'GET':
@@ -35,7 +36,8 @@ def login(state_id):
         storage.save()
         return make_response(jsonify(st.to_dict()), 200)
 
-@app_views.route('/states', methods=['GET','POST'], strict_slashes=False)
+
+@app_views.route('/states', methods=['GET', 'POST'], strict_slashes=False)
 def login1():
     """without id"""
     if request.method == 'GET':
