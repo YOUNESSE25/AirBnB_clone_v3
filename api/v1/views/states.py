@@ -4,11 +4,28 @@ from models.state import State
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
-from flasgger.utils import swag_from
+from werkzeug.exceptions import NotFound, MethodNotAllowed, BadRequest
 
 
-@app_views.route('/states', methods=['GET'], strict_slashes=False)
-@swag_from('documentation/state/get_state.yml', methods=['GET'])
+ALLOWED_METHODS = ['GET', 'DELETE', 'POST', 'PUT']
+
+
+@app_views.route('/states', methods=ALLOWED_METHODS)
+@app_views.route('/states/<state_id>', methods=ALLOWED_METHODS)
+# @app_views.route('/states', methods=['GET'], strict_slashes=False)
+def handle_states(state_id=None):
+    '''The method handler for the states endpoint.
+    '''
+    handlers = {
+        'GET': GETStates,
+        'DELETE': DELETEState,
+        'POST': POSTState,
+        'PUT': PUTState,
+    }
+    if request.method in handlers:
+        return handlers[request.method](state_id)
+    else:
+        raise MethodNotAllowed(list(handlers.keys()))
 def GETStates():
     """"""
     AllStates = storage.all(State).values()
@@ -18,8 +35,7 @@ def GETStates():
     return jsonify(StatesList)
 
 
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
-@swag_from('documentation/state/get_id_state.yml', methods=['get'])
+# @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def GETState(state_id):
     """"""
     st = storage.get(State, state_id)
@@ -28,9 +44,8 @@ def GETState(state_id):
     return jsonify(st.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'],
-                 strict_slashes=False)
-@swag_from('documentation/state/delete_state.yml', methods=['DELETE'])
+# @app_views.route('/states/<state_id>', methods=['DELETE'],
+                #  strict_slashes=False)
 def DELETEState(state_id):
     """"""
     st = storage.get(State, state_id)
@@ -41,8 +56,7 @@ def DELETEState(state_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.route('/states', methods=['POST'], strict_slashes=False)
-@swag_from('documentation/state/post_state.yml', methods=['POST'])
+# @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def POSTState():
     """"""
     if not request.get_json():
@@ -55,8 +69,7 @@ def POSTState():
     return make_response(jsonify(Inst.to_dict()), 201)
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
-@swag_from('documentation/state/put_state.yml', methods=['PUT'])
+# @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def PUTState(state_id):
     """"""
     st = storage.get(State, state_id)
