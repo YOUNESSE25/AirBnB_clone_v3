@@ -25,18 +25,6 @@ def GETState(state_id):
     return jsonify(st.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'],
-                 strict_slashes=False)
-def DELETEState(state_id):
-    """"""
-    st = storage.get(State, state_id)
-    if not st:
-        abort(404)
-    storage.delete(st)
-    storage.save()
-    return make_response(jsonify({}), 200)
-
-
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def POSTState():
     """"""
@@ -65,3 +53,15 @@ def PUTState(state_id):
             setattr(st, Key, val)
     storage.save()
     return make_response(jsonify(st.to_dict()), 200)
+
+
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False)
+def DELETEState(state_id):
+    """"""
+    st = storage.get(State, state_id)
+    if not st:
+        abort(404)
+    storage.delete(st)
+    storage.save()
+    return make_response(jsonify({}), 200)
