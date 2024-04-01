@@ -40,7 +40,7 @@ def POSTState():
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def PUTState(state_id):
-    """"""
+    """ """
     st = storage.get(State, state_id)
     if not st:
         abort(404)
