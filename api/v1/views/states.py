@@ -6,7 +6,8 @@ from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 
 
-# @app_views.route('/states/<state_id>', methods=['GET','DELETE','PUT'], strict_slashes=False)
+# @app_views.route('/states/<state_id>', methods=['GET','DELETE',
+# 'PUT'], strict_slashes=False)
 # def login(state_id):
 #     """with id"""
 #     if request.method == 'GET':
@@ -62,6 +63,7 @@ def GETStates():
         StatesList.append(st.to_dict())
     return jsonify(StatesList)
 
+
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def GETState(state_id):
     """"""
@@ -74,13 +76,13 @@ def GETState(state_id):
 @app_views.route('/states/<state_id>', methods=['DELETE'],
                  strict_slashes=False)
 def DELETEState(state_id):
-        """"""
-        st = storage.get(State, state_id)
-        if not st:
-            abort(404)
-        storage.delete(st)
-        storage.save()
-        return make_response(jsonify({}), 200)
+    """"""
+    st = storage.get(State, state_id)
+    if not st:
+        abort(404)
+    storage.delete(st)
+    storage.save()
+    return make_response(jsonify({}), 200)
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
