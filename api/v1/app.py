@@ -20,7 +20,7 @@ def closedb(error):
 @app.errorhandler(404)
 def pageNotFound(error):
     """"""
-    return jsonify({"error": "Not found"}), 404
+    return jsonify({'error': "Not found"}), 404
 
 
 if __name__ == "__main__":
