@@ -7,7 +7,6 @@ from flask import Flask
 from os import environ
 
 
-
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
@@ -16,6 +15,7 @@ app.register_blueprint(app_views)
 def closedb(error):
     """ close db """
     storage.close()
+
 
 if __name__ == "__main__":
     """main"""
