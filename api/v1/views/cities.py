@@ -73,8 +73,8 @@ def PUTCity(city_id):
     if not request.get_json():
         abort(400, description="Not a JSON")
     deb = ['id', 'state_id', 'created_at', 'updated_at']
-    data = request.get_json()
-    for key, value in data.items():
+    Data = request.get_json()
+    for key, value in Data.items():
         if key not in deb:
             setattr(CT, key, value)
     storage.save()
