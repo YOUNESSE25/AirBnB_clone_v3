@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""""""
+"""app.py"""
 from models import storage
 from api.v1.views import app_views
 from flask import Flask, jsonify, make_response
@@ -18,7 +18,7 @@ def closedb(error):
 
 @app.errorhandler(404)
 def not_found(error):
-    """"""
+    """error"""
     return make_response(jsonify({'error': "Not found"}), 404)
 
 

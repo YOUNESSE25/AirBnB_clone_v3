@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""""""
+"""amenities.py"""
 from models.amenity import Amenity
 from models import storage
 from api.v1.views import app_views
@@ -8,7 +8,7 @@ from flask import abort, jsonify, make_response, request
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def GETAmenitie():
-    """"""
+    """get"""
     Amenities = storage.all(Amenity).values()
     list_amenities = []
     for amty in Amenities:
@@ -19,7 +19,7 @@ def GETAmenitie():
 @app_views.route('/amenities/<amenity_id>/', methods=['GET'],
                  strict_slashes=False)
 def GETAmenity(amenity_id):
-    """"""
+    """get"""
     amty = storage.get(Amenity, amenity_id)
     if not amty:
         abort(404)
@@ -28,7 +28,7 @@ def GETAmenity(amenity_id):
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def POSTAmenity():
-    """"""
+    """post"""
     if not request.get_json():
         abort(400, description="Not a JSON")
     if 'name' not in request.get_json():
@@ -42,7 +42,7 @@ def POSTAmenity():
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def PUTAmenity(amenity_id):
-    """"""
+    """put"""
     if not request.get_json():
         abort(400, description="Not a JSON")
     deb = ['id', 'created_at', 'updated_at']
@@ -60,7 +60,7 @@ def PUTAmenity(amenity_id):
 @app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
 def DELAmenity(amenity_id):
-    """"""
+    """del"""
     amty = storage.get(Amenity, amenity_id)
     if not amty:
         abort(404)

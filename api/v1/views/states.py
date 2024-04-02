@@ -8,7 +8,7 @@ from models.state import State
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def GETStates():
-    """"""
+    """get"""
     AllStates = storage.all(State).values()
     StatesList = []
     for st in AllStates:
@@ -18,7 +18,7 @@ def GETStates():
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def GETState(state_id):
-    """"""
+    """get"""
     st = storage.get(State, state_id)
     if not st:
         abort(404)
@@ -27,7 +27,7 @@ def GETState(state_id):
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def POSTState():
-    """"""
+    """post"""
     if not request.get_json():
         abort(400, description="Not a JSON")
     if 'name' not in request.get_json():
@@ -40,7 +40,7 @@ def POSTState():
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def PUTState(state_id):
-    """ """
+    """put"""
     st = storage.get(State, state_id)
     if not st:
         abort(404)
@@ -57,8 +57,8 @@ def PUTState(state_id):
 
 @app_views.route('/states/<state_id>', methods=['DELETE'],
                  strict_slashes=False)
-def DELETEState(state_id):
-    """"""
+def DELState(state_id):
+    """del"""
     st = storage.get(State, state_id)
     if not st:
         abort(404)

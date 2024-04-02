@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""create a file index.py"""
+"""index.py"""
 from api.v1.views import app_views
 from flask import jsonify
 from models import storage
@@ -19,7 +19,7 @@ def GetStatus():
 
 @app_views.route('/stats', strict_slashes=False)
 def Getstats():
-    """"""
+    """get"""
     objects = {
         'amenities': Amenity,
         'cities': City,
