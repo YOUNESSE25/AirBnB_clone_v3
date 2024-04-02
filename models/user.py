@@ -33,7 +33,7 @@ class User(BaseModel, Base):
         super().__init__(*args, **kwargs)
 
     def __set_pass(self, passwd):
-        """md5"""
+        """md5 """
         passwrdcach = md5(passwd.encode('utf-8')).hexdigest()
         setattr(self, "password", passwrdcach)
 <<<<<<< HEAD
