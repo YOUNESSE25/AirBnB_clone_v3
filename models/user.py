@@ -36,4 +36,7 @@ class User(BaseModel, Base):
         """md5"""
         passwrdcach = md5(passwd.encode('utf-8')).hexdigest()
         setattr(self, "password", passwrdcach)
+<<<<<<< HEAD
         
+=======
+>>>>>>> 9017e9a6f531ce8ca3950da589f11238636a5b97

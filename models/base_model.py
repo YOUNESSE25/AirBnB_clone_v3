@@ -5,6 +5,8 @@ Contains class BaseModel
 
 from datetime import datetime
 import models
+from os import getenv
+import sqlalchemy
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
@@ -66,7 +68,7 @@ class BaseModel:
         new_dict["__class__"] = self.__class__.__name__
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
-        if "password" and models.storage_t == "db" in new_dict:
+        if models.storage_t == "db" and "password" in new_dict:
             del new_dict["password"]
         return new_dict
 
