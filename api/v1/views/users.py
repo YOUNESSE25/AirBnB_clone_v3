@@ -27,7 +27,7 @@ def GETUser(user_id):
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def POSTUser():
-    """post"""
+    """post """
     if not request.get_json():
         abort(400, description="Not a JSON")
     if 'email' not in request.get_json():
